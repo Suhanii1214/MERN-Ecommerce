@@ -84,7 +84,37 @@ export const get_user = (req,res) => {
         .then(user => res.json(user));
 }
 
-const authController = { signup, login, get_user };
+export const updateUser = async (req, res) => {
+    const { name, email, contact, address } = req.body;
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Update user information if provided
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (contact) user.contact = contact;
+        if (address) user.address = address;
+
+        // Save the updated user
+        await user.save();
+
+        // Respond with the updated user (excluding the password)
+        const updatedUser = await User.findById(req.user.id).select('-password');
+        res.json(updatedUser);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+const authController = { signup, login, get_user, updateUser };
 export default authController;
 
 

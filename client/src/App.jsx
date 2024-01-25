@@ -11,6 +11,8 @@ import { AddItem } from './components/EditItems/AddItem'
 import { ProductDetails } from './components/ProductDetails'
 import { DeleteItem } from './components/EditItems/DeleteItem'
 import { UpdateItem } from './components/EditItems/UpdateItem'
+import { Search } from './components/Search'
+import { Checkout } from './components/Checkout'
 
 function App() {
   return <BrowserRouter>
@@ -21,6 +23,8 @@ function App() {
       <Route path='/item/:id' element={<ProductDetails/>} />
       <Route path='/cart/:userId' element = {<Cart/>}/>
       <Route path='/premium' element = {<Premium/>}/>
+      <Route path='/search' element = {<Search/>}/>
+      <Route path='/checkout' element = {<Checkout/>}/>
       <Route path='/addItem' element = {<AddItem/>}/>
       <Route path='/deleteItem' element = {<DeleteItem/>}/>
       <Route path='/updateItem' element = {<UpdateItem/>}/>

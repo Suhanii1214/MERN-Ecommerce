@@ -3,12 +3,12 @@ import axios from "axios";
 import { returnErrors } from "./errorActions";
 import { getCart, addToCart, deleteFromCart, cartLoading } from "../reducers/cartSlice";
 
-export const fetchCart = (id) => dispatch => {
+export const fetchCart = (id) => (dispatch) => {
     dispatch(cartLoading());
     axios.get(`/api/fetchCart/${id}`)
         .then(res => {
             dispatch(getCart(res.data))
-            console.log(res.data.items);
+            console.log(res.data);
             console.log("Cart Fetched");
         })
         .catch(err => {

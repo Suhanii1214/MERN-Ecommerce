@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
         <div className='p-4 mt-1 mr-3'>
             <ul className='flex flex-row items-center gap-7'>
-                <li className='cursor-pointer'> <HiSearch size={25}/> </li>
+                <li className='cursor-pointer' onClick={() => navigate("/search")}> <HiSearch size={25}/> </li>
                 <li className='cursor-pointer' onClick={handleUser}>
                     {isAuthenticated ? <HiUser size={25}/> : "Log In"}
                 </li>

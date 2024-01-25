@@ -4,4 +4,4 @@ import orderController from '../controllers/orderController.js'
 export const orderRouter = Router()
 
 orderRouter.get('/order/:id', orderController.get_orders)
-orderRouter.post('/order/:id', orderController.checkout)
+orderRouter.post('/order/checkout/:id', orderController.checkout)

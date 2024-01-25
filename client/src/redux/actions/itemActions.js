@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getItems, addItem, deleteItem, updateItem, itemsLoading } from '../reducers/itemSlice';
 import { returnErrors } from './errorActions';
 
-export const fetchItems = () => dispatch => {
+export const fetchItems = () => (dispatch) => {
     dispatch(itemsLoading());
     axios.get('/api/items')
         .then(res => {

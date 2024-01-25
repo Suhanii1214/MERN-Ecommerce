@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { register } from '../../redux/actions/authActions'; // Adjust the path accordingly
+import { register } from '../../redux/actions/authActions';
+import { Toaster } from 'react-hot-toast';
 
 export const Signup = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,14 @@ export const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Dispatch the login action
+    // Dispatch the signup action
     dispatch(register({name, email, password }));
+    console.log("Success");
   };
 
   return (
     <div className='flex flex-col mt-10 mx-96 py-14 items-center bg-black justify-center border'>
+    <Toaster position='top-center' reverseOrder={false}></Toaster>
       <h2 className='text-2xl font-bold m-3 text-white'>Welcome to BE:BOLD</h2>
       <form onSubmit={handleSubmit} className=' justify-center'>
       <div className='my-6'>
@@ -63,7 +66,12 @@ export const Signup = () => {
             />
         </div>
         <div className='my-6 ml-20'>
-        <button type="submit" className='text-lg text-white bg-black hover:text-black hover:bg-white font-bold border-2 border-white rounded-md px-8 py-1.5'>SignUp</button>
+        <button 
+          type="submit" 
+          className='text-lg text-white bg-black hover:text-black hover:bg-white font-bold border-2 border-white rounded-md px-8 py-1.5'
+        >
+          SignUp
+          </button>
         </div>
       </form>
       <p className='text-white'>Already a member? <span onClick={() => navigate("/login")} className='font-bold cursor-pointer'>Login</span></p>

@@ -15,10 +15,6 @@ const itemSlice = createSlice({
             state.items = action.payload
             state.loading = false
         },
-        // getItem: (state, action) => {
-        //     state.selectedItem = action.payload;
-        //     state.loading = false;
-        // },
         addItem: (state, action) => {
             state.items = [action.payload, ...state.items]
         },
@@ -31,10 +27,33 @@ const itemSlice = createSlice({
         },
         itemsLoading: (state) => {
             state.loading = true
-        }
+        },
+        sortItems: (state, action) => {
+            const selectedSort = action.payload;
+            switch (selectedSort) {
+                case 'Most Popular':
+                    // Implement sorting logic for Most Popular
+                    break;
+                case 'New Arrivals':
+                    // Implement sorting logic for New Arrivals
+                    state.items.sort((a, b) => new Date(a.date) - new Date(b.date));                    
+                    break;
+                case 'Price: Low to High':
+                    // Implement sorting logic for Price: Low to High
+                    state.items.sort((a, b) => b.price - a.price);
+                    break;
+                case 'Price: High to Low':
+                    // Implement sorting logic for Price: High to Low
+                    state.items.sort((a, b) => a.price - b.price);
+                    break;
+                default:
+                    // Default case or no sorting logic needed
+                    break;
+            }
+        },
     }
 })
 
-export const { getItems, addItem, deleteItem, updateItem, itemsLoading} = itemSlice.actions
+export const { getItems, addItem, deleteItem, updateItem, itemsLoading, sortItems} = itemSlice.actions
 
 export default itemSlice.reducer

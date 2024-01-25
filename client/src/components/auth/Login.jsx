@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../../redux/actions/authActions'; 
+import { Toaster } from 'react-hot-toast';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const Login = () => {
     e.preventDefault();
 
     // Dispatch the login action
-    dispatch(login({ email, password }));
+    dispatch(login({ email, password }))
     if(isAuthenticated) {
       navigate('/')
     }
@@ -28,6 +29,7 @@ export const Login = () => {
 
   return (
     <div className='flex flex-col mt-10 mx-96 py-14 items-center bg-black justify-center border'>
+        <Toaster position='top-center' reverseOrder={false}></Toaster>
       <h2 className='text-2xl font-bold m-3 text-white'>Welcome Back!</h2>
       <form onSubmit={handleSubmit} className=' justify-center'>
         <div className='my-6'>
