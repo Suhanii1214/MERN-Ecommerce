@@ -1,5 +1,5 @@
 // Login.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../../redux/actions/authActions'; 
@@ -13,6 +13,12 @@ export const Login = () => {
 
   const { email, password } = formData;
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,9 +28,6 @@ export const Login = () => {
 
     // Dispatch the login action
     dispatch(login({ email, password }))
-    if(isAuthenticated) {
-      navigate('/')
-    }
   };
 
   return (

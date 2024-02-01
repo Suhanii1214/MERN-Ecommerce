@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from '../redux/actions/itemActions';
-import { Product } from './Product';
+import { Product } from './Store/Product';
 
 export const Search = () => {
   const dispatch = useDispatch();

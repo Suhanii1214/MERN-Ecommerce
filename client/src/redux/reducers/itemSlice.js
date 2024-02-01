@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     items: [],
-    // selectedItem: null,
+    originalItems: [],
+    wishlistItems: [],
+    selectedCategories: [],
+    selectedPrices: [],
     loading: false
 }
 
@@ -28,6 +31,62 @@ const itemSlice = createSlice({
         itemsLoading: (state) => {
             state.loading = true
         },
+        categoryFilter: (state, action) => {
+            const selectedCategory = action.payload
+
+            if (state.originalItems.length === 0) {
+                state.originalItems =[...state.items];
+            }
+            console.log(state.originalItems);
+            // Toggle the selected category in the array
+            state.selectedCategories.includes(selectedCategory)
+            ? state.selectedCategories = state.selectedCategories.filter(category => category !== selectedCategory)
+            : state.selectedCategories = [...state.selectedCategories, selectedCategory];
+
+            // If there are selected categories, filter items based on them, else show all items
+            state.items = state.selectedCategories.length > 0
+            ? state.originalItems.filter(item => state.selectedCategories.includes(item.category))
+            : state.originalItems;
+        },
+        priceFilter: (state, action) => {
+            const selectedPrice = action.payload;
+
+            if (state.originalItems.length === 0) {
+                state.originalItems =[...state.items];
+            }
+            console.log(state.originalItems);
+
+            // If a price filter is already applied, clear it
+            if (state.selectedPrices.length > 0) {
+                state.items = state.originalItems;
+                state.selectedPrices = [];
+            }
+
+            // Toggle the selected price in the array
+            state.selectedPrices = [selectedPrice];
+
+            // If there are selected prices, filter items based on them, else show all items
+            state.items = state.selectedPrices.length > 0
+                ? state.originalItems.filter(item => {
+                    // Customize this condition based on your item price structure
+                    if (selectedPrice === 'Below Rs.499') {
+                        return item.price < 499;
+                    } else if (selectedPrice === 'Rs.499 - Rs.1,999') {
+                        return item.price >= 499 && item.price <= 1999;
+                    } else if (selectedPrice === 'Rs.1,999 - Rs.4,999') {
+                        return item.price >= 1999 && item.price <= 4999;
+                    } else if (selectedPrice === 'Rs.4,999 - Rs.9,999') {
+                        return item.price >= 4999 && item.price <= 9999;
+                    } else if (selectedPrice === 'Rs.9,999 - Rs.14,999') {
+                        return item.price >= 9999 && item.price <= 14999;
+                    } else if (selectedPrice === 'Above Rs.14,999') {
+                        return item.price > 14999
+                    }
+
+                    return true; // If no condition matches, include the item
+                })
+                : state.originalItems;
+        },
         sortItems: (state, action) => {
             const selectedSort = action.payload;
             switch (selectedSort) {
@@ -51,9 +110,21 @@ const itemSlice = createSlice({
                     break;
             }
         },
+        addToWishlist: (state, action) => {
+            const newItem = action.payload;
+            state.wishlistItems = [newItem, ...state.wishlistItems];
+            console.log(state.wishlistItems);
+        },
+        removeFromWishlist: (state, action) => {
+            const itemIdToRemove = action.payload;
+            state.wishlistItems = state.wishlistItems.filter(
+              (item) => item._id !== itemIdToRemove
+            );
+            console.log(state.wishlistItems);
+        },
     }
 })
 
-export const { getItems, addItem, deleteItem, updateItem, itemsLoading, sortItems} = itemSlice.actions
+export const { getItems, addItem, deleteItem, updateItem, itemsLoading, categoryFilter, priceFilter, sortItems, addToWishlist, removeFromWishlist} = itemSlice.actions
 
 export default itemSlice.reducer

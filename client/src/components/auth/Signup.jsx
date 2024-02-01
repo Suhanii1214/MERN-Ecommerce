@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { register } from '../../redux/actions/authActions';
 import { Toaster } from 'react-hot-toast';
 
 export const Signup = () => {
+  const {isAuthenticated} = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
   const { name, email, password } = formData;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

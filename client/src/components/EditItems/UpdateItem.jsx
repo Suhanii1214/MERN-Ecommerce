@@ -8,6 +8,7 @@ export const UpdateItem = () => {
     const [updatedItem, setUpdatedItem] = useState({
       title: '',
       price: 0,
+      category: '',
       description: '',
     });
   
@@ -24,6 +25,7 @@ export const UpdateItem = () => {
       setUpdatedItem({
         title: selectedItem.title,
         price: selectedItem.price,
+        category: selectedItem.category,
         description: selectedItem.description,
       });
     };
@@ -35,6 +37,7 @@ export const UpdateItem = () => {
         setUpdatedItem({
           title: '',
           price: 0,
+          category: '',
           description: '',
         });
       }
@@ -70,6 +73,14 @@ export const UpdateItem = () => {
                 value={updatedItem.price}
                 onChange={(e) =>
                   setUpdatedItem({ ...updatedItem, price: e.target.value })
+                }
+              />
+              <label>Category:</label>
+              <input
+                type="text"
+                value={updatedItem.category}
+                onChange={(e) =>
+                  setUpdatedItem({ ...updatedItem, category: e.target.value })
                 }
               />
               <label>Description:</label>

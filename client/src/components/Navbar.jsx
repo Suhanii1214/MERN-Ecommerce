@@ -1,27 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { HiShoppingBag, HiUser, HiSearch } from 'react-icons/hi'
+import {FaCircle} from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCart } from '../redux/actions/cartActions'
 
 const Navbar = () => {
-    // const dispatch = useDispatch()
+    const [count, setCount] = useState(0)
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const userId = useSelector((state) => state.auth.user?.id)
-    // const cart = useSelector((state) => state.cart?.cart)
-    // console.log(cart);
-    // console.log(userId);
-
+    const {cartItems} = useSelector(state => state.cart)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     if(isAuthenticated) {
-    //         dispatch(fetchCart(userId))
-    //     }
-    // },[dispatch, isAuthenticated, userId])
-
-    // const totalQuantity = (cart && cart.items) ? cart.items.reduce((total, item) => total + item.quantity, 0) : 0;    
-    // console.log(totalQuantity);
+    useEffect(() => {
+        if(isAuthenticated) {
+            dispatch(fetchCart(userId))
+        }
+        setCount(cartItems?.items?.length)
+    },[isAuthenticated, dispatch, userId, cartItems?.items?.length])
 
     const handleUser = () => {
         if(isAuthenticated) {
@@ -31,7 +28,7 @@ const Navbar = () => {
         }
     }
 
-  return <header className=' w-full h-16 bg-white shadow-md'>
+  return <header className=' w-full h-16 bg-white shadow-md sticky top-0 z-10'>
     <div className='flex flex-row justify-between'>
         <div className='p-2 ml-5 mt-1'>
             <ul className='flex flex-row items-center gap-5'>
@@ -47,8 +44,15 @@ const Navbar = () => {
                     {isAuthenticated ? <HiUser size={25}/> : "Log In"}
                 </li>
                 <li className='mr-3 cursor-pointer relative' onClick={() => navigate(`/cart/${userId}`)}>
-                    <HiShoppingBag size={25}/>
-                    {/* {totalQuantity > 0 && <span className="text-center bg-black text-white absolute top-[-5px] right-[-12px] line-[1] rounded-full">{totalQuantity}</span>} */}
+                <div className='relative'>
+                    <HiShoppingBag size={25} />
+                    {count > 0 ? (
+                        <div className='absolute px-[6px] bg-red-500 rounded-full text-sm text-white font-semibold top-0 right-0 transform translate-x-1/2 -translate-y-1/2'>
+                            {count}
+                        </div>
+                    ): null
+                    }
+                </div>
                 </li>
             </ul>
         </div>

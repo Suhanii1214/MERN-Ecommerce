@@ -13,7 +13,7 @@ export const fetchCart = (id) => (dispatch) => {
         })
         .catch(err => {
             console.log(err);
-            dispatch(returnErrors(err.res.data, err.res.status))
+            dispatch(returnErrors(err.message, err.response.status))
         })
 }
 
@@ -32,7 +32,7 @@ export const addItemToCart = (id, productId, quantity) => dispatch => {
 
 export const removeItemFromCart = (userId, itemId) => dispatch => {
     axios.delete(`/api/cart/${userId}/${itemId}`)
-        .then(res => dispatch(deleteFromCart(res.data)))
+        .then(res => dispatch(deleteFromCart(itemId)))
         .catch(err => {
             console.log(err);
             dispatch(returnErrors(err.res.data, err.res.status))

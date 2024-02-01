@@ -7,7 +7,7 @@ export const fetchItems = () => (dispatch) => {
     dispatch(itemsLoading());
     axios.get('/api/items')
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(getItems(res.data))
         })
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));

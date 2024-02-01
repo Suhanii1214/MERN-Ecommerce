@@ -7,6 +7,7 @@ import payment from '../../assets/atm-card.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser, updateUserInfo } from '../../redux/actions/authActions'
 import { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router'
 
 export const Profile = () => {
 
@@ -14,6 +15,8 @@ export const Profile = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const user = useSelector((state) => state.auth.user)
   // console.log(user);
+
+  const navigate = useNavigate()
 
   const [userData, setUserData] = useState({
     name: '',
@@ -57,7 +60,7 @@ export const Profile = () => {
           name='name'
           value={userData.name}
           onChange={handleChange}
-          className='bg-slate-200 rounded-md py-2 px-2'
+          className='bg-gray-100 rounded-md py-2 px-2'
         />
       </div>
       <div className='flex flex-col m-2'>
@@ -67,7 +70,7 @@ export const Profile = () => {
           name='email'
           value={userData.email}
           onChange={handleChange}
-          className='bg-slate-200 rounded-md py-2 px-2'
+          className='bg-gray-100 rounded-md py-2 px-2'
         />
       </div>
       <div className='flex flex-col m-2'>
@@ -77,7 +80,7 @@ export const Profile = () => {
           name='contact'
           value={userData.contact}
           onChange={handleChange}
-          className='bg-slate-200 rounded-md py-2 px-2'
+          className='bg-gray-100 rounded-md py-2 px-2'
         />
       </div>
       <div className='flex flex-col m-2'>
@@ -87,20 +90,20 @@ export const Profile = () => {
           name='address'
           value={userData.address}
           onChange={handleChange}
-          className='bg-slate-200 rounded-md py-2 px-2'
+          className='bg-gray-100 rounded-md py-2 px-2'
         />
       </div>
       <button onClick={handleUpdate} className='bg-black text-white hover:opacity-70 py-2 mx-2 my-3 rounded-md'>Update</button>
    </div> 
   <div className='col-span-1 mt-5 ml-3'>
-    <div className='flex flex-row justify-between hover:bg-slate-100 cursor-pointer border-2 text-lg border-gray-200 rounded-md my-4 py-5 px-4'>
+    <div onClick={() => navigate("/wishlist")} className='flex flex-row justify-between hover:bg-slate-100 cursor-pointer border-2 text-lg border-gray-200 rounded-md my-4 py-5 px-4'>
       <div className='flex flex-row'>
         <FaHeart size={34} color='#e2067f' className='m-1'/>
         <span className='mt-1 mx-1'>Wishlist</span>
       </div>
       <FaChevronRight color='gray' className='mt-3'/>
     </div>
-    <div className='flex flex-row justify-between hover:bg-slate-100 cursor-pointer border-2 text-lg border-gray-200 rounded-md my-4 py-5 px-4'>
+    <div onClick={() => navigate(`/myorders/${user._id}`)} className='flex flex-row justify-between hover:bg-slate-100 cursor-pointer border-2 text-lg border-gray-200 rounded-md my-4 py-5 px-4'>
       <div className='flex flex-row'>
         <img src={order} width={45} className='mr-1'/>
         <span className='mt-2 mx-1'>Orders</span>
