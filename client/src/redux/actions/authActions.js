@@ -9,7 +9,7 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch(userLoading());
 
     axios
-        .get('/api/user', tokenConfig(getState))
+        .get('https://bebold.onrender.com/api/user', tokenConfig(getState))
         .then((res) => dispatch(userLoaded(res.data)))
         .catch((err) => {
             dispatch(returnErrors(err.response.data, err.response.status));
@@ -27,7 +27,7 @@ export const register = ({ name, email, password }) => (dispatch) => {
     const body = JSON.stringify({ name, email, password });
 
     axios
-        .post('/api/signup', body, config)
+        .post('https://bebold.onrender.com/api/signup', body, config)
         .then((res) => {
             dispatch(loginSuccess(res.data))
             toast.success("Sign Up Successful")
@@ -51,7 +51,7 @@ export const login = ({ email, password }) => (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     axios
-        .post('/api/login', body, config)
+        .post('https://bebold.onrender.com/api/login', body, config)
         .then((res) => {
             dispatch(loginSuccess(res.data))
             toast.success("Login Successful")
@@ -90,7 +90,7 @@ export const updateUserInfo = (updatedData) => (dispatch, getState) => {
       };
 
     axios
-    .put('/api/update-user', updatedData, tokenConfig(getState))
+    .put('https://bebold.onrender.com/api/update-user', updatedData, tokenConfig(getState))
     .then((res) => {
       dispatch(userLoaded(res.data));
       toast.success("User information updated successfully");

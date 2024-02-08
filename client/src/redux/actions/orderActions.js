@@ -4,7 +4,7 @@ import { getOrders, checkout, ordersLoading } from '../reducers/orderSlice';
 
 export const fetchOrders = (id) => dispatch => {
     dispatch(ordersLoading());
-    axios.get(`/api/order/${id}`)
+    axios.get(`https://bebold.onrender.com/api/order/${id}`)
         .then(res => {
             dispatch(getOrders(res.data))
             console.log(res.data);
@@ -14,7 +14,7 @@ export const fetchOrders = (id) => dispatch => {
 
 export const initiateCheckout = (id, source) => dispatch => {
     return new Promise((resolve, reject) => {
-        axios.post(`/api/order/checkout/${id}`, { source })
+        axios.post(`https://bebold.onrender.com/api/order/checkout/${id}`, { source })
         .then(res => {
             dispatch(checkout(res.data))
             console.log(res.data);

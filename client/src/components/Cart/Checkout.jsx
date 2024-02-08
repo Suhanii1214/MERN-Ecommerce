@@ -78,7 +78,7 @@ export const Checkout = () => {
                       ...source
                     };
                     
-                    axios.post('/api/paymentverification', body)
+                    axios.post('https://bebold.onrender.com/api/paymentverification', body)
                     .then(res => {
                         navigate("/paymentsuccess")
                     })

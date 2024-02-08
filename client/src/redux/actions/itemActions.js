@@ -5,7 +5,7 @@ import { returnErrors } from './errorActions';
 
 export const fetchItems = () => (dispatch) => {
     dispatch(itemsLoading());
-    axios.get('/api/items')
+    axios.get('https://bebold.onrender.com/api/items')
         .then(res => {
             // console.log(res.data);
             dispatch(getItems(res.data))
@@ -25,7 +25,7 @@ export const fetchItems = () => (dispatch) => {
 
 export const createItem = (item) => (dispatch) => {
     console.log(item);
-    axios.post('/api/add-item', item)
+    axios.post('https://bebold.onrender.com/api/add-item', item)
         .then(res => {
             dispatch(addItem(item))
             console.log("Item Added Successfully");
@@ -34,13 +34,13 @@ export const createItem = (item) => (dispatch) => {
 }
 
 export const removeItem = (id) => (dispatch) => {
-    axios.delete(`/api/items/${id}`)
+    axios.delete(`https://bebold.onrender.com/api/items/${id}`)
         .then(() => dispatch(deleteItem(id)))
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
 }
 
 export const modifyItem = (id, item) => (dispatch) => {
-    axios.put(`/api/items/${id}`, item)
+    axios.put(`https://bebold.onrender.com/api/items/${id}`, item)
         .then(res => dispatch(updateItem({ id, data: res.data })))
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
 }

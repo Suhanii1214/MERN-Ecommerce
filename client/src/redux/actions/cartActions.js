@@ -5,7 +5,7 @@ import { getCart, addToCart, deleteFromCart, cartLoading } from "../reducers/car
 
 export const fetchCart = (id) => (dispatch) => {
     dispatch(cartLoading());
-    axios.get(`/api/fetchCart/${id}`)
+    axios.get(`https://bebold.onrender.com/api/fetchCart/${id}`)
         .then(res => {
             dispatch(getCart(res.data))
             console.log(res.data);
@@ -18,7 +18,7 @@ export const fetchCart = (id) => (dispatch) => {
 }
 
 export const addItemToCart = (id, productId, quantity) => dispatch => {
-    axios.post(`/api/cart/${id}`, { productId, quantity })
+    axios.post(`https://bebold.onrender.com/api/cart/${id}`, { productId, quantity })
         .then(res => {
             dispatch(addToCart(res.data))
             console.log(res.data.items);
@@ -31,7 +31,7 @@ export const addItemToCart = (id, productId, quantity) => dispatch => {
 }
 
 export const removeItemFromCart = (userId, itemId) => dispatch => {
-    axios.delete(`/api/cart/${userId}/${itemId}`)
+    axios.delete(`https://bebold.onrender.com/api/cart/${userId}/${itemId}`)
         .then(res => dispatch(deleteFromCart(itemId)))
         .catch(err => {
             console.log(err);
