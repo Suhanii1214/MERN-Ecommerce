@@ -34,7 +34,7 @@ const Navbar = () => {
             <ul className='flex flex-row items-center gap-5'>
                 <li onClick={() => navigate('/')} className=' ml-3 mr-5 cursor-pointer font-bold text-2xl'>BE:BOLD</li>
                 <li onClick={() => navigate('/store')} className='text-black font-bold mt-1 cursor-pointer'>Our Store</li>
-                <li onClick={() => navigate('/premium')} className='text-[#ddbe42] font-bold px-3 py-1 mt-1 border border-[#ddbe42] rounded-full cursor-pointer'>Premium</li>
+                {/* <li onClick={() => navigate('/premium')} className='text-[#ddbe42] font-bold px-3 py-1 mt-1 border border-[#ddbe42] rounded-full cursor-pointer'>Premium</li> */}
             </ul>
         </div>
         <div className='p-4 mt-1 mr-3'>

@@ -3,7 +3,7 @@ import { OrderCard } from './OrderCard'
 import { useNavigate, useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { initiateCheckout } from '../../redux/actions/orderActions'
-import ENV from '../../../../config.js'
+import ENV from '../../../../server/config.js'
 import icon from '../../assets/icon.png'
 import axios from 'axios'
 
