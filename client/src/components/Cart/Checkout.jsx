@@ -65,7 +65,7 @@ export const Checkout = () => {
             console.log("Response Data: ", response);
 
             const options = {
-                key: ENV.RAZORPAY_KEY_ID,
+                key: process.env.RAZORPAY_KEY_ID,
                 amount: response.razorpayOrder.amount,
                 currency: "INR",
                 name: "Suhani Singh",

@@ -1,10 +1,7 @@
-import Order from '../models/order.js'
-import Cart from '../models/cart.js'
-import User from '../models/user.js'
+import Order from '../models/order.model.js'
 import crypto from 'crypto'
 import Razorpay from 'razorpay'
 import ENV from '../config.js'
-import { log } from 'console'
 
 export const get_orders = async (req, res) => {
     const userId = req.params.id
@@ -14,8 +11,8 @@ export const get_orders = async (req, res) => {
 export const checkout = async (req, res) => {
 
   const razorpay = new Razorpay({
-    key_id: ENV.RAZORPAY_KEY_ID,
-    key_secret: ENV.RAZORPAY_SECRET_KEY
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
   })
 
   try {
@@ -44,7 +41,7 @@ export const paymentVerification = async (req,res) => {
       const body = razorpay_order_id + "|" + razorpay_payment_id;
 
       const expectedSignature = crypto
-        .createHmac("sha256", ENV.RAZORPAY_SECRET_KEY)
+        .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
         .update(body.toString())
         .digest("hex");
 

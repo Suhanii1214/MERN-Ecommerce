@@ -1,4 +1,4 @@
-import User from '../models/user.js'
+import User from '../models/user.model.js'
 import jwt from 'jsonwebtoken'
 import ENV from '../config.js'
 import bcrypt, { hash } from 'bcrypt'
@@ -23,7 +23,7 @@ export const signup = (req,res) => {
                 newUser.password = hash
                 newUser.save()
                     .then(user => {
-                        jwt.sign({id: user._id}, ENV.JWT_SECRET, {expiresIn: 3600}, (err, token) => {
+                        jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: 3600}, (err, token) => {
                             if(err) throw err
                             res.json({ 
                                 token,
@@ -59,7 +59,7 @@ export const login = async (req,res) => {
 
                     jwt.sign(
                         { id: user._id },
-                        ENV.JWT_SECRET,
+                        process.env.JWT_SECRET,
                         { expiresIn: 3600 },
                         (err, token) => {
                             if(err) throw err;

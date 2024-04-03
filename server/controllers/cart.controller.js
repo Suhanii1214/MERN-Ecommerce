@@ -1,6 +1,6 @@
 //cartController.js
-import Cart from '../models/cart.js'
-import Item from '../models/item.js'
+import Cart from '../models/cart.model.js'
+import Item from '../models/item.model.js'
 
 export const get_cart_items = async (req, res) => {
     const userId = req.params.id

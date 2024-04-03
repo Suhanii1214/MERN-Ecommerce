@@ -1,16 +1,18 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import cors from 'cors'
-import ENV from './config.js'
-import { router as authRouter } from './routes/auth.js'
-import Razorpay from 'razorpay'
-import { itemRouter } from './routes/item.js'
-import { orderRouter } from './routes/order.js'
-import { cartRouter } from './routes/cart.js'
+import dotenv from 'dotenv/config'
+import { authRouter } from './routes/auth.route.js'
+import { itemRouter } from './routes/item.route.js'
+import { orderRouter } from './routes/order.route.js'
+import { cartRouter } from './routes/cart.route.js'
+import { dbConnect } from './db/database.js'
 
 const app  = express()
 
-app.use(cors())
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -21,7 +23,14 @@ app.use('/api', orderRouter)
 app.use('/api', cartRouter)
 
 // connecting to the database
-const port = 4000
-mongoose.connect(ENV.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => app.listen(port, () => console.log(`Server running on port ${port}`)))
-.catch((err) => console.log(err))
+const port = process.env.PORT
+
+dbConnect()
+.then(() => {
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    })
+})
+.catch((err) => {
+    console.log("Connection Failed! ", err);
+})

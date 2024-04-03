@@ -1,4 +1,4 @@
-import Item from '../models/item.js'
+import Item from '../models/item.model.js'
 
 export const get_items = (req, res) => {
     Item.find().sort({date:-1})
